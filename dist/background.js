@@ -1,0 +1,2 @@
+(()=>{"use strict";chrome.runtime.onInstalled.addListener((()=>{chrome.action.disable()})),chrome.tabs.onUpdated.addListener(((e,t,a)=>{"complete"===t.status&&a.url&&(a.url.match(/^https:\/\/sam\.gov\/opp\/.*/)?chrome.action.enable(e):chrome.action.disable(e))}))})();
+//# sourceMappingURL=background.js.map

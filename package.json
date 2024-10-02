@@ -1,0 +1,37 @@
+{
+  "name": "sam-gov-extension",
+  "version": "1.0.0",
+  "description": "Chrome extension to View SAM.gov Opportunity API JSON",
+  "license": "Apache-2.0",
+  "author": "Geoff Ereth",
+  "scripts": {
+    "build:css": "postcss src/styles/tailwind.css -o dist/tailwind.css",
+    "copy-files": "copyfiles -f manifest.json popup.html src/icons/*.png dist/",
+    "build": "webpack && npm run build:css && npm run copy-files"
+  },
+  "devDependencies": {
+    "@types/chrome": "^0.0.254",
+    "@types/prismjs": "^1.26.4",
+    "autoprefixer": "^10.4.20",
+    "copyfiles": "^2.4.1",
+    "css-loader": "^7.1.2",
+    "postcss": "^8.4.47",
+    "postcss-cli": "^11.0.0",
+    "style-loader": "^4.0.0",
+    "tailwindcss": "^3.4.13",
+    "ts-loader": "^9.5.1",
+    "typescript": "^5.6.2",
+    "webpack": "^5.95.0",
+    "webpack-cli": "^5.1.4"
+  },
+  "dependencies": {
+    "prismjs": "^1.29.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Refactor-Systems/sam-gov-extension.git",
+    "bugs": {
+      "url": "https://github.com/Refactor-Systems/sam-gov-extension/issues"
+    }
+  }
+}

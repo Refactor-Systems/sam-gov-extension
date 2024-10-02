@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>SAM.gov Notice</title>
+  <link rel="stylesheet" href="tailwind.css">
+</head>
+<body class="p-6 w-[640px] pb-10 bg-gradient-to-br from-gray-100 to-gray-200">
+  <div class="relative bg-white rounded-lg shadow-lg p-6 overflow-hidden">
+    <div class="absolute inset-0 bg-blue-50 opacity-50"></div>
+    <div class="absolute inset-y-0 left-0 w-1 bg-gradient-to-b from-blue-700 to-red-700"></div>
+    <div class="relative z-10">
+      <h1 class="text-2xl font-bold mb-6 text-blue-900">SAM.gov Opportunities API JSON</h1>
+      <div class="mb-4 relative">
+        <label for="apiKey" class="mb-2 font-bold text-gray-700 text-sm flex items-center">
+          SAM.gov API KEY
+          <span id="apiKeyInfo" class="ml-2 cursor-pointer text-blue-400 hover:text-blue-800 text-[12px]">
+            ⓘ
+          </span>
+        </label>
+        <div class="relative">
+          <input type="password" id="apiKey" placeholder="Enter your API key" class="w-full mb-2 p-2 pr-10 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+          <button id="toggle-password" class="absolute right-2 top-1/2 transform -translate-y-1/2 text-blue-400 hover:text-blue-900 focus:outline-none">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" id="eye-icon">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+            </svg>
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor" id="eye-off-icon">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.543-7a9.97 9.97 0 011.563-3.029m5.858.908a3 3 0 114.243 4.243M9.878 9.878l4.242 4.242M9.88 9.88l-3.29-3.29m7.532 7.532l3.29 3.29M3 3l3.59 3.59m0 0A9.953 9.953 0 0112 5c4.478 0 8.268 2.943 9.543 7a10.025 10.025 0 01-4.132 5.411m0 0L21 21" />
+            </svg>
+          </button>
+        </div>
+      </div>
+      <div id="pageTitle"></div>
+
+      <div class="flex justify-between w-full gap-4">
+        <button id="saveApiKey" class="text-sm w-full bg-blue-700 hover:bg-blue-800 text-white font-bold p-4 rounded transition duration-300 ease-in-out flex items-center justify-center">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor">
+            <path d="M7.707 10.293a1 1 0 10-1.414 1.414l3 3a1 1 0 001.414 0l3-3a1 1 0 00-1.414-1.414L11 11.586V6h5a2 2 0 012 2v7a2 2 0 01-2 2H4a2 2 0 01-2-2V8a2 2 0 012-2h5v5.586l-1.293-1.293zM9 4a1 1 0 012 0v2H9V4z" />
+          </svg>
+          Save API Key
+        </button>
+        <button id="fetchData" class="text-sm w-full bg-red-700 hover:bg-red-800 text-white font-bold p-4 rounded transition duration-300 ease-in-out flex items-center justify-center">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor">
+            <path fill-rule="evenodd" d="M4 2a1 1 0 011 1v2.101a7.002 7.002 0 0111.601 2.566 1 1 0 11-1.885.666A5.002 5.002 0 005.999 7H9a1 1 0 010 2H4a1 1 0 01-1-1V3a1 1 0 011-1zm.008 9.057a1 1 0 011.276.61A5.002 5.002 0 0014.001 13H11a1 1 0 110-2h5a1 1 0 011 1v5a1 1 0 11-2 0v-2.101a7.002 7.002 0 01-11.601-2.566 1 1 0 01.61-1.276z" clip-rule="evenodd" />
+          </svg>
+          Fetch JSON from API
+        </button>
+      </div>
+
+      <div id="loader" class="mt-10 hidden w-8 h-8 border-4 border-blue-700 border-t-transparent rounded-full animate-spin mx-auto"></div>
+      <div id="resultContainer" class="relative mt-4">
+        <div id="result" class="hidden p-4 border border-gray-300 bg-white rounded-md shadow-sm whitespace-pre-wrap break-words overflow-x-auto"></div>
+        <button id="copyButton" class="absolute top-2 right-2 bg-blue-600 hover:bg-blue-700 text-white font-bold py-1 px-2 rounded text-sm hidden">
+          Copy to Clipboard
+        </button>
+      </div>
+
+      <div id="toast" class="fixed bottom-4 right-4 bg-blue-500 text-white px-4 py-2 rounded-md shadow-lg transition-opacity duration-300 opacity-0 pointer-events-none">
+        Copied to clipboard!
+      </div>
+    </div>
+  </div>
+  <script src="popup.js"></script>
+</body>
+</html>
